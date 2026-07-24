@@ -189,6 +189,54 @@
     www.thespacestation.com &nbsp;|&nbsp; &copy; 2024
   </div>
   <!-- END FOOTER-->
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+      <img src="" alt="Enlarged thumbnail" id="lightboxImage">
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImage = document.getElementById('lightboxImage');
+      var closeButton = document.getElementById('lightboxClose');
+
+      function openLightbox(src, alt) {
+        lightboxImage.src = src;
+        lightboxImage.alt = alt || 'Enlarged image';
+        lightbox.classList.add('active');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        lightboxImage.src = '';
+      }
+
+      document.querySelectorAll('.photo').forEach(function(photo) {
+        photo.addEventListener('click', function() {
+          var img = this.querySelector('img');
+          if (img) {
+            openLightbox(img.src, img.alt);
+          }
+        });
+      });
+
+      closeButton.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function(event) {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
 </body>            
 
 </html>
